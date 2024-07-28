@@ -14,13 +14,15 @@
     },
     "ios": {
       "supportsTablet": true,
-      "shareExtension": true
+      "shareExtension": true,
+      "bundleIdentifier": "com.thor.shareasstory"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.thor.shareasstory"
     },
     "web": {
       "bundler": "metro",
@@ -29,7 +31,15 @@
     },
     "plugins": [
       "expo-router",
-      "expo-share-intent"
+      [
+        "expo-share-intent",
+        {
+          "iosActivationRules": {
+            "NSExtensionActivationSupportsImageWithMaxCount": 1
+          },
+          "androidIntentFilters": ["image/*"]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

@@ -7,6 +7,8 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+import { useShareIntent, ShareIntentFile } from "expo-share-intent";
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
@@ -15,6 +17,18 @@ export default function RootLayout() {
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
+
+  const { hasShareIntent, shareIntent, resetShareIntent, error } =
+  useShareIntent({
+    debug: true,
+    resetOnBackground: true,
+  });
+
+  useEffect(() => {
+    if (hasShareIntent && shareIntent) {
+      console.log('Received shared content:', shareIntent);
+    }
+  }, [hasShareIntent, shareIntent]);
 
   useEffect(() => {
     if (loaded) {
